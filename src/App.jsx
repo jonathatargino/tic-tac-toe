@@ -4,16 +4,23 @@ import { Box, Typography,Container, } from '@mui/material'
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(0))
+  const [player, setPlayer] = useState(1);
 
   const handleCellClick = (cellIndex) => {
     setBoard(
       board.map((item, index) => {
-        if (index === cellIndex){
-          return 1
+        // Se o index da célula iterada for igual ao index da célula clicada, o array receberá o valor do player atual no lugar do 0. Ou seja, se o player 1 clicar numa célula, o array irá receber o valor 1 no index correspondente à célula.
+        if (index === cellIndex & item === 0){
+          return player
         }
         return item
       })
     )
+    handlePlayerChange();
+  }
+
+  const handlePlayerChange = () => {
+    setPlayer(player === 1 ? 2 : 1);
   }
   return (
     <Container 
