@@ -39,7 +39,7 @@ function App() {
 
   useEffect(() => {
     if (render.current >= 2){
-      handlePlayerChange()
+      handlePassTurn()
     } else {
       render.current += 1
     }
@@ -81,6 +81,11 @@ function App() {
         playerChanged ? setWinner(1) : setWinner(2);
       }
     })
+    if (board.every(cell => cell !== 0)) handleDraw()
+  }
+
+  const handleDraw = () => {
+    setWinner(3);
   }
 
   const handleOpenDialog = () => {
@@ -208,10 +213,20 @@ function App() {
         open={openDialog}
         onClose={handleCloseDialog}
       >
-        <DialogTitle >{`Jogador ${winner} venceu o jogo!`}</DialogTitle>  
+        <DialogTitle >
+          {
+            winner !== 3 ?
+            `Jogador ${winner} venceu o jogo!`
+            : "Empate, deu velha!"
+          }
+        </DialogTitle>  
         <DialogContent>
           <DialogContentText>
-            {`Jogador1 ${score.player1} x ${score.player2} Jogador2`}
+            {
+              winner !== 3 ? 
+              `Jogador1 ${score.player1} x ${score.player2} Jogador2`
+              :"Ninguém ganhou dessa vez..." 
+            }
           </DialogContentText>
         </DialogContent>
         <DialogActions>
