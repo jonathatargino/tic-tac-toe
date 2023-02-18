@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect, useState, useRef } from 'react';
-import { Container, Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button, Fab } from '@mui/material'
+import { Container, Typography, Box, Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button, Fab } from '@mui/material'
 import openChange from '../public/open-change.svg'
 import closedChange from '../public/closed-change.svg'
 
@@ -9,8 +9,15 @@ function App() {
   const [player, setPlayer] = useState(1);
   const [playerChanged, setPlayerChanged] = useState(false)
   const [winner, setWinner] = useState(0);
+  const [score, setScore] = useState({player1: 0, player2: 0})
   const [openDialog, setOpenDialog] = useState(false);
   const render = useRef(0)
+
+  useEffect(() => {
+    if (localStorage.getItem('score')){
+      setScore(JSON.parse(localStorage.getItem('score')))
+    }
+  }, [])
 
   useEffect(() => {
     checkWin();
@@ -19,6 +26,12 @@ function App() {
   useEffect(() => {
     if (winner !== 0){
       handleOpenDialog();
+      if (winner === 1){
+        setScore({...score, player1: score.player1 + 1})
+      } else {
+        setScore({...score, player2: score.player2 + 1})
+      }
+      
     }
   }, [winner])
 
@@ -29,6 +42,12 @@ function App() {
       render.current += 1
     }
   }, [playerChanged])
+
+  useEffect(() => {
+    if (render.current >= 2){
+      localStorage.setItem('score', JSON.stringify(score))
+    }
+  }, [score])
 
 
   const handleCellClick = (cellIndex) => {
@@ -75,6 +94,11 @@ function App() {
     if (board.every(cell => cell === 0)){
       playerChanged === false ? setPlayerChanged(true) : setPlayerChanged(false)
     }
+  }
+
+  const handleResetScore = () => {
+    location.reload();
+    setScore({player1: 0, player2: 0})
   }
 
   const winningWays = [
@@ -167,12 +191,16 @@ function App() {
         open={openDialog}
         onClose={handleCloseDialog}
       >
+        <DialogTitle >{`Jogador ${winner} venceu o jogo!`}</DialogTitle>  
         <DialogContent>
-          <DialogTitle >{`Jogador ${winner} venceu o jogo!`}</DialogTitle>  
-          <DialogActions sx={{display: "flex", justifyContent: "center"}}>
-            <Button onClick={handleCloseDialog}>Jogar Novamente</Button>
-          </DialogActions>
+          <DialogContentText>
+            {`Jogador1 ${score.player1} x ${score.player2} Jogador2`}
+          </DialogContentText>
         </DialogContent>
+        <DialogActions>
+          <Button onClick={handleResetScore}>Reiniciar Placar</Button>
+          <Button onClick={handleCloseDialog}>Jogar Novamente</Button>
+        </DialogActions>
       </Dialog>
     </Container>
   )
