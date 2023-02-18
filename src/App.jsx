@@ -60,12 +60,12 @@ function App() {
         board.map((item, index) => {
           // Se o index da célula iterada for igual ao index da célula clicada, o array receberá o valor do player atual no lugar do 0. Ou seja, se o player 1 clicar numa célula, o array irá receber o valor 1 no index correspondente à célula.
           if (index === cellIndex & item === 0){
+            handlePassTurn();
             return player
           }
           return item
         })
       )
-      handlePassTurn();
     }
   }
 
@@ -74,15 +74,18 @@ function App() {
   }
 
   const checkWin = () => {
+    let haveWinner = false
     winningWays.forEach((way) => {
       if(way.every(cell => board[cell] === 1)){
         playerChanged ? setWinner(2) : setWinner(1);
+        haveWinner = true
       }
       else if(way.every(cell => board[cell] === 2)){
         playerChanged ? setWinner(1) : setWinner(2);
+        haveWinner = true
       }
     })
-    if (board.every(cell => cell !== 0) ) handleDraw()
+    if (board.every(cell => cell !== 0) && !haveWinner ) handleDraw()
   }
 
   const handleDraw = () => {
