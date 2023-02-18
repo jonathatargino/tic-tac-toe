@@ -1,12 +1,16 @@
 import './App.css'
-import { useEffect, useState } from 'react';
-import { Container, Typography, Box, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material'
+import { useEffect, useState, useRef } from 'react';
+import { Container, Typography, Box, Dialog, DialogActions, DialogContent, DialogTitle, Button, Fab } from '@mui/material'
+import openChange from '../public/open-change.svg'
+import closedChange from '../public/closed-change.svg'
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(0))
   const [player, setPlayer] = useState(1);
+  const [playerChanged, setPlayerChanged] = useState(false)
   const [winner, setWinner] = useState(0);
   const [openDialog, setOpenDialog] = useState(false);
+  const render = useRef(0)
 
   useEffect(() => {
     checkWin();
@@ -17,6 +21,14 @@ function App() {
       handleOpenDialog();
     }
   }, [winner])
+
+  useEffect(() => {
+    if (render.current >= 2){
+      handlePlayerChange()
+    } else {
+      render.current += 1
+    }
+  }, [playerChanged])
 
 
   const handleCellClick = (cellIndex) => {
@@ -41,11 +53,11 @@ function App() {
   const checkWin = () => {
     winningWays.forEach((way) => {
       if(way.every(cell => board[cell] === 1)){
-        setWinner(1)
+        playerChanged ? setWinner(2) : setWinner(1);
         return true;
       }
       else if(way.every(cell => board[cell] === 2)){
-        setWinner(2)
+        playerChanged ? setWinner(1) : setWinner(2);
       }
     })
   }
@@ -59,6 +71,11 @@ function App() {
     location.reload();
   }
 
+  const handleChangePlayers = () => {
+    if (board.every(cell => cell === 0)){
+      playerChanged === false ? setPlayerChanged(true) : setPlayerChanged(false)
+    }
+  }
 
   const winningWays = [
     [0,1,2], [3,4,5], [6,7,8], // Horizontal
@@ -74,6 +91,37 @@ function App() {
       <Typography variant='h1' component='h1'>
         Jogo da Velha
       </Typography>
+
+      <Box display={"flex"} justifyContent={"space-around"} alignContent={"center"} width={"100%"}>
+        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+          <Typography variant='h4' component='h4'>
+            Jogador 1
+          </Typography>
+          <Box 
+            sx={
+              {width: "100px", height: "100px", backgroundColor: "#cccc", borderRadius: "100%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2.5em"}
+            }
+            > {playerChanged ? '⭕' : '✖️'}
+          </Box>
+        </Box>
+
+        <Fab sx={{padding: "8px"}} onClick={handleChangePlayers}>
+          <img src={board.every(cell => cell === 0) ? openChange : closedChange}/>
+        </Fab>
+
+
+        <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+          <Typography variant='h4' component='h4'>
+            Jogador 2
+          </Typography>
+          <Box 
+            sx={
+              {width: "100px", height: "100px", backgroundColor: "#cccc", borderRadius: "100%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2.5em"}
+            }
+            > {playerChanged ? '✖️' : '⭕'}
+          </Box>
+        </Box>
+      </Box>
 
       <Box
         sx={{
@@ -123,8 +171,8 @@ function App() {
           <DialogTitle >{`Jogador ${winner} venceu o jogo!`}</DialogTitle>  
           <DialogActions sx={{display: "flex", justifyContent: "center"}}>
             <Button onClick={handleCloseDialog}>Jogar Novamente</Button>
-          </DialogActions> 
-        </DialogContent>    
+          </DialogActions>
+        </DialogContent>
       </Dialog>
     </Container>
   )
