@@ -6,6 +6,7 @@ import 'react-notifications-component/dist/theme.css'
 import Title from './components/Title';
 import PlayersBar from './components/PlayersBar';
 import Cell from './components/Cell';
+import WinDialog from './components/WinDialog';
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(0))
@@ -170,31 +171,13 @@ function App() {
             />
         )})}
       </Box>
-      <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-      >
-        <DialogTitle >
-          {
-            winner !== 3 ?
-            `Jogador ${winner} venceu o jogo!`
-            : "Empate, deu velha!"
-          }
-        </DialogTitle>  
-        <DialogContent>
-          <DialogContentText>
-            {
-              winner !== 3 ? 
-              `Jogador1 ${score.player1} x ${score.player2} Jogador2`
-              :"Ninguém ganhou dessa vez..." 
-            }
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleResetScore}>Reiniciar Placar</Button>
-          <Button onClick={handleCloseDialog}>Jogar Novamente</Button>
-        </DialogActions>
-      </Dialog>
+      <WinDialog
+        openDialog={openDialog}
+        winner={winner}
+        score={score}
+        handleResetScore={handleResetScore}
+        handleCloseDialog={handleCloseDialog}
+      />
     </Container>
   )
 }
