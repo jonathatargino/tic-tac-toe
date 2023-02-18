@@ -1,6 +1,8 @@
-import './App.css'
 import { useEffect, useState, useRef } from 'react';
 import { Container, Typography, Box, Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button, Fab } from '@mui/material'
+import { ReactNotifications, Store } from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css'
+
 import openChange from '../public/open-change.svg'
 import closedChange from '../public/closed-change.svg'
 
@@ -61,11 +63,11 @@ function App() {
           return item
         })
       )
-      handlePlayerChange();
+      handlePassTurn();
     }
   }
 
-  const handlePlayerChange = () => {
+  const handlePassTurn = () => {
     setPlayer(player === 1 ? 2 : 1);
   }
 
@@ -93,6 +95,20 @@ function App() {
   const handleChangePlayers = () => {
     if (board.every(cell => cell === 0)){
       playerChanged === false ? setPlayerChanged(true) : setPlayerChanged(false)
+    } else {
+      Store.addNotification({
+        title: "Ação inválida.",
+        message: "A troca de lados só pode ocorrer antes do jogo.",
+        type: "warning",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 5000,
+          onScreen: true
+        }
+      });
     }
   }
 
@@ -111,6 +127,7 @@ function App() {
       sx={
         {display: "flex", flexDirection: "column", gap: "10px", alignItems: "center"}
       }>
+      <ReactNotifications/>
 
       <Typography variant='h1' component='h1'>
         Jogo da Velha
