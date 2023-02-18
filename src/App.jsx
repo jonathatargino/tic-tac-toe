@@ -153,15 +153,9 @@ function App() {
         }}
       >
         {board.map((item, index) => {
-          let emoji;
-          if (item === 1){
-            emoji = "✖️"
-          }
-          else if (item === 2){
-            emoji = "⭕"
-          }
-          else {
-            emoji = ""
+          let emoji = "";
+          if (item !== 0){
+            item === 1 ? emoji = "✖️" : emoji = "⭕"; 
           }
           return(
             <Cell
