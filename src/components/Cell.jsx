@@ -1,12 +1,10 @@
-import { Box } from "@mui/material"
+import { Button } from "@mui/material"
 
 function Cell({onClick, emoji}) {
   return (
-    <Box
+    <Button
       onClick={() => onClick()}
       sx={{
-        width: 240,
-        height: 240,
         backgroundColor: 'primary.light',
         fontSize: "6rem",
         display: "flex",
@@ -18,7 +16,7 @@ function Cell({onClick, emoji}) {
           opacity: [0.9, 0.8, 0.7]     
         },
       }}
-    >{emoji}</Box>
+    >{emoji}</Button>
   )
 }
 
