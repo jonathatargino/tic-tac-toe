@@ -41,14 +41,6 @@ function App() {
 
   useEffect(() => {
     if (render.current >= 2){
-      handlePassTurn()
-    } else {
-      render.current += 1
-    }
-  }, [playerChanged])
-
-  useEffect(() => {
-    if (render.current >= 2){
       localStorage.setItem('score', JSON.stringify(score))
     }
   }, [score])
