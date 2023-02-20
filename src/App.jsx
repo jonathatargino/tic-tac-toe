@@ -10,7 +10,7 @@ import WinDialog from './components/WinDialog';
 
 function App() {
   const [board, setBoard] = useState(Array(9).fill(0))
-  const [player, setPlayer] = useState(1);
+  const [actualPlayer, setActualPlayer] = useState(1);
   const [isStartingPlayerChanged, setIsStartingPlayerChanged] = useState(false)
   const [winner, setWinner] = useState(0);
   const [score, setScore] = useState({player1: 0, player2: 0})
@@ -55,7 +55,7 @@ function App() {
           // Se o index da célula iterada for igual ao index da célula clicada, o array receberá o valor do player atual no lugar do 0. Ou seja, se o player 1 clicar numa célula, o array irá receber o valor 1 no index correspondente à célula.
           if (index === cellIndex & item === 0){
             passPlayerTurn();
-            return player
+            return actualPlayer
           }
           return item
         })
@@ -64,18 +64,18 @@ function App() {
   }
 
   const passPlayerTurn = () => {
-    setPlayer(player === 1 ? 2 : 1);
+    setActualPlayer(actualPlayer === 1 ? 2 : 1);
   }
 
   const checkWin = () => {
     let haveWinner = false
     winningWays.forEach((way) => {
       if(way.every(cell => board[cell] === 1)){
-        isStartingPlayerChanged ? setWinner(2) : setWinner(1);
+        setWinner(1);
         haveWinner = true
       }
       else if(way.every(cell => board[cell] === 2)){
-        isStartingPlayerChanged ? setWinner(1) : setWinner(2);
+        setWinner(2);
         haveWinner = true
       }
     })
@@ -98,6 +98,7 @@ function App() {
   const changeStartingPlayer = () => {
     if (board.every(cell => cell === 0)){
       isStartingPlayerChanged === false ? setIsStartingPlayerChanged(true) : setIsStartingPlayerChanged(false)
+      passPlayerTurn()
     } else {
       Store.addNotification({
         title: "Ação inválida.",
@@ -152,7 +153,11 @@ function App() {
         {board.map((item, index) => {
           let emoji = "";
           if (item !== 0){
-            item === 1 ? emoji = "✖️" : emoji = "⭕"; 
+            if (isStartingPlayerChanged){
+              item === 1 ? emoji = "⭕" : emoji = "✖️";
+            } else {
+              item === 1 ? emoji = "✖️" : emoji = "⭕";
+            }
           }
           return(
             <Cell
