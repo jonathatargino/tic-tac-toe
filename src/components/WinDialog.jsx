@@ -1,10 +1,10 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button } from '@mui/material'
 
-function WinDialog({openDialog, handleCloseDialog, winner, score, handleResetScore}) {
+function WinDialog({isDialogOpen, closeDialog, winner, score, resetScore}) {
   return (
     <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
+        open={isDialogOpen}
+        onClose={closeDialog}
       >
         <DialogTitle >
           {
@@ -23,8 +23,8 @@ function WinDialog({openDialog, handleCloseDialog, winner, score, handleResetSco
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleResetScore}>Reiniciar Placar</Button>
-          <Button onClick={handleCloseDialog}>Jogar Novamente</Button>
+          <Button onClick={resetScore}>Reiniciar Placar</Button>
+          <Button onClick={closeDialog}>Jogar Novamente</Button>
         </DialogActions>
       </Dialog>
   )
