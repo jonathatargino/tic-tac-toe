@@ -29,19 +29,21 @@ function App() {
 
   useEffect(() => {
     if (winner !== 0){
-      openDialog();
       if (winner === 1){
         setScore({...score, player1: score.player1 + 1})
       } else {
         setScore({...score, player2: score.player2 + 1})
       }
-      
+      openDialog();
     }
   }, [winner])
 
   useEffect(() => {
     if (render.current >= 2){
+      console.log('armazenei');
       localStorage.setItem('score', JSON.stringify(score))
+    } else {
+      render.current++
     }
   }, [score])
 
