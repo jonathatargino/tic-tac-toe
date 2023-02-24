@@ -42,7 +42,11 @@ const CircleBoxProps = {
 
 const FabProps = {
   backgroundColor: "#222222",
-  padding: "8px"
+  padding: "8px",
+  '&:hover': {
+    backgroundColor: "#4f4f4f",
+    opacity: [0.9, 0.8, 0.7]     
+  },
 }
 
 export default { MainBoxProps, PlayerBoxProps, PlayerTypography, CircleBoxProps, FabProps }

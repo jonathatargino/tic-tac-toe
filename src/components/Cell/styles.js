@@ -18,7 +18,7 @@ const CellProps = {
   alignItems: "center",
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: 'primary.dark',
+    backgroundColor: "#4f4f4f",
     opacity: [0.9, 0.8, 0.7]     
   },
 }
