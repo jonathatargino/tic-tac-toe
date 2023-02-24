@@ -3,7 +3,7 @@ import { Box, Typography, Fab } from "@mui/material"
 import openChange from '../../public/open-change.svg'
 import closedChange from '../../public/closed-change.svg'
 
-function PlayersBar({board, playerChanged, handleChangePlayers}) {
+function PlayersBar({board, isStartingPlayerChanged, changeStartingPlayer}) {
   return (
     <Box display={"flex"} justifyContent={"space-around"} alignContent={"center"} width={"100%"}>
         <Box sx={{display: "flex", flexDirection: "column", alignItems: "center"}}>
@@ -14,11 +14,11 @@ function PlayersBar({board, playerChanged, handleChangePlayers}) {
             sx={
               {width: "100px", height: "100px", backgroundColor: "#cccc", borderRadius: "100%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2.5em"}
             }
-            > {playerChanged ? '⭕' : '✖️'}
+            > {isStartingPlayerChanged ? '⭕' : '✖️'}
           </Box>
         </Box>
 
-        <Fab sx={{padding: "8px"}} onClick={handleChangePlayers}>
+        <Fab sx={{padding: "8px"}} onClick={changeStartingPlayer}>
           <img src={board.every(cell => cell === 0) ? openChange : closedChange}/>
         </Fab>
 
@@ -31,7 +31,7 @@ function PlayersBar({board, playerChanged, handleChangePlayers}) {
             sx={
               {width: "100px", height: "100px", backgroundColor: "#cccc", borderRadius: "100%", display: "flex", justifyContent: "center", alignItems: "center", fontSize: "2.5em"}
             }
-            > {playerChanged ? '✖️' : '⭕'}
+            > {isStartingPlayerChanged ? '✖️' : '⭕'}
           </Box>
         </Box>
       </Box>
