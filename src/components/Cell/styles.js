@@ -7,7 +7,7 @@ const CellProps = {
     xs: "100px",
     sm: "120px"
   },
-  backgroundColor: 'primary.light',
+  backgroundColor: '#222222',
   fontSize: {
     xs: "2.5rem",
     sm: "4rem",
@@ -18,7 +18,7 @@ const CellProps = {
   alignItems: "center",
   cursor: 'pointer',
   '&:hover': {
-    backgroundColor: 'primary.dark',
+    backgroundColor: "#4f4f4f",
     opacity: [0.9, 0.8, 0.7]     
   },
 }
