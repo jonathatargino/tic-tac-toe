@@ -11,6 +11,7 @@ const ContainerProps = {
 
 const GridBoxProps = {
   display: "grid",
+  justifyContent: "center",
   gridTemplateColumns: "repeat(3, 1fr)",
   gridTemplateRows: "repeat(3, 1fr)",
   gap: {
