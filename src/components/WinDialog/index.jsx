@@ -1,12 +1,17 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button } from '@mui/material'
 
+import styles from './styles'
+
 function WinDialog({isDialogOpen, closeDialog, winner, score, resetScore}) {
   return (
     <Dialog
         open={isDialogOpen}
         onClose={closeDialog}
+        fullWidth
+        maxWidth="sm"
+        PaperProps={{sx: styles.DialogProps}}
       >
-        <DialogTitle >
+        <DialogTitle sx={styles.TitleProps}>
           {
             winner !== 3 ?
             `Jogador ${winner} venceu o jogo!`
@@ -14,7 +19,7 @@ function WinDialog({isDialogOpen, closeDialog, winner, score, resetScore}) {
           }
         </DialogTitle>  
         <DialogContent>
-          <DialogContentText>
+          <DialogContentText sx={styles.ContentTextProps}>
             {
               winner !== 3 ? 
               `Jogador1 ${score.player1} x ${score.player2} Jogador2`
