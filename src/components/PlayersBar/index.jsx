@@ -9,7 +9,7 @@ function PlayersBar({board, isStartingPlayerChanged, changeStartingPlayer}) {
   return (
     <Box sx={styles.MainBoxProps}>
         <Box sx={styles.PlayerBoxProps}>
-          <Typography variant='h4' component='h4'>
+          <Typography sx={styles.PlayerTypography} variant='h4' component='h4'>
             Jogador 1
           </Typography>
 
@@ -24,7 +24,7 @@ function PlayersBar({board, isStartingPlayerChanged, changeStartingPlayer}) {
         </Fab>
 
         <Box sx={styles.PlayerBoxProps}>
-          <Typography variant='h4' component='h4'>
+          <Typography sx={styles.PlayerTypography} variant='h4' component='h4'>
             Jogador 2
           </Typography>
 
