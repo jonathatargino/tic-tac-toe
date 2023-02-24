@@ -1,5 +1,7 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText,DialogTitle, Button } from '@mui/material'
 
+import styles from './styles'
+
 function WinDialog({isDialogOpen, closeDialog, winner, score, resetScore}) {
   return (
     <Dialog
