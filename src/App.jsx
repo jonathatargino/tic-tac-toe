@@ -31,7 +31,8 @@ function App() {
     if (winner !== 0){
       if (winner === 1){
         setScore({...score, player1: score.player1 + 1})
-      } else {
+      }
+      else if (winner === 2){
         setScore({...score, player2: score.player2 + 1})
       }
       openDialog();
