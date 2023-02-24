@@ -15,7 +15,8 @@ const PlayerTypography = {
   fontSize: {
     xs: "1.5rem",
     md: "2rem"
-  }
+  },
+  color: "#959595"
 }
 
 const CircleBoxProps = {
@@ -27,7 +28,7 @@ const CircleBoxProps = {
     xs: "60px",
     lg: "100px"
   },
-  backgroundColor: "#cccc",
+  backgroundColor: "#222222",
   borderRadius: "100%",
   display: "flex",
   justifyContent:
@@ -40,6 +41,7 @@ const CircleBoxProps = {
 }
 
 const FabProps = {
+  backgroundColor: "#222222",
   padding: "8px"
 }
 

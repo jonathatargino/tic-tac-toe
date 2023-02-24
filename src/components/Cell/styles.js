@@ -7,7 +7,7 @@ const CellProps = {
     xs: "100px",
     sm: "120px"
   },
-  backgroundColor: 'primary.light',
+  backgroundColor: '#222222',
   fontSize: {
     xs: "2.5rem",
     sm: "4rem",
