@@ -54,7 +54,7 @@ function TicTacToe() {
     if (winner === 0){
       setBoard(
         board.map((item, index) => {
-          // Se o index da célula iterada for igual ao index da célula clicada, o array receberá o valor do player atual no lugar do 0. Ou seja, se o player 1 clicar numa célula, o array irá receber o valor 1 no index correspondente à célula.
+          // Se o index da célula iterada for igual ao index da célula clicada, o array receberá o valor do player atual no lugar do 0.
           if (index === cellIndex & item === 0){
             passPlayerTurn();
             return actualPlayer
