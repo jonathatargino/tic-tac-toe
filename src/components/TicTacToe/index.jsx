@@ -104,7 +104,7 @@ function TicTacToe() {
     } else {
       Store.addNotification({
         title: "Ação inválida.",
-        message: "A troca de lados só pode ocorrer antes do jogo.",
+        message: "A troca de lados só pode ocorrer antes do jogo!",
         type: "warning",
         insert: "top",
         container: "top-right",
